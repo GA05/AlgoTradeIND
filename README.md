@@ -1,36 +1,36 @@
-# **AlgoTradeIND**  
+# **AlgoTradeIND**
 
-AlgoTradeIND is a stock trading web application that provides **real-time price updates** using WebSockets and **technical indicator-based trading signals**. The app supports trading on **both the NASDAQ (US) and Nifty Fifty (India) markets**, ensuring that signals are generated according to their respective market timings.  
-
-## **Features**  
-
-- **Live Stock Price Updates:** Utilizes `yliveticker` WebSocket connections for real-time data.  
-- **Signal Generation:** Uses `yfinance` to analyze 60 days of historical data and generate buy/sell signals.  
-- **Responsive UI:** Built with **TailwindCSS** (installed locally) for a modern and clean interface.  
-- **Paper Trading:** Practice buying and selling stocks based on dynamically generated trading signals.  
+**AlgoTradeIND** is a real-time stock trading web application that delivers **live price updates** using WebSockets and provides **automated trading signals** based on technical indicators. It supports both **NASDAQ (US)** and **Nifty Fifty (India)** markets, with signal logic tailored to each market’s trading hours.
 
 ---
 
-## **Usage**  
+## **Features**
 
-- **Live price updates** and **signal generation** are available even **without** the database setup.  
-- If you only need real-time stock prices and trading signals, **you can skip the database setup**.  
-- For full paper trading functionality, complete the **admin panel setup and user account creation**.  
+- 🔄 **Real-Time Stock Prices**: Leverages `yliveticker` WebSockets for live market data.
+- 📊 **Automated Signal Generation**: Analyzes the last 60 days of stock data via `yfinance` to produce buy/sell signals.
+- 🎯 **Paper Trading**: Simulate trading using real-time signals without risking actual capital.
+- 💻 **Modern UI**: Built with locally installed **TailwindCSS** for a sleek and responsive interface.
 
 ---
 
-## **Getting Started**  
+## **Usage Notes**
 
-### **1. Clone the Repository**  
+- You can use the **live pricing** and **trading signals** without setting up the database.
+- To enable full **paper trading** functionality, including user accounts and admin access, you'll need to complete the database and admin setup.
+
+---
+
+## **Getting Started**
+
+### **1. Clone the Repository**
 ```bash
-mkdir AlgoTradeIND
 git clone https://github.com/nestcub/AlgoTradeIND.git
 cd AlgoTradeIND
 ```
 
-### **2. Set Up Python Virtual Environment**  
+### **2. Set Up Python Virtual Environment**
 
-Create and activate a virtual environment:  
+Create and activate a virtual environment:
 ```bash
 python -m venv venv
 # On Windows:
@@ -39,89 +39,101 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-Install dependencies:  
+Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-### **3. Set Up SQLite Database [ Skip to step 4 to avoid current database setup]**
+---
 
-Run the following commands to set up the database:  
+### **3. (Optional) Set Up SQLite Database for Admin & Paper Trading**
+
+If you want to use the admin panel and simulate trades:
+
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-Create a superuser for accessing the Django admin panel:  
+Create a Django superuser:
 ```bash
 python manage.py createsuperuser
 ```
-Follow the prompts to set up a **username, email, and password**.
+
+Provide the username, email, and password as prompted.
 
 ---
 
-### **4. Set Up TailwindCSS**  
+### **4. Set Up TailwindCSS**
 
-Open a **new terminal** in the project directory and run:  
+Open a **new terminal** in the project root and run:
+
 ```bash
 npm install
 ```
-This will install necessary TailwindCSS dependencies and create a `node_modules` folder.  
 
-Start the TailwindCSS build process:  
+Then start the Tailwind build process:
+
 ```bash
 npm run dev
 ```
 
+This will generate the necessary CSS for your frontend.
+
 ---
 
-### **5. Start the Django Server**  
+### **5. Run the Django Server**
 
-Go back to the terminal where the Python virtual environment is activated and run:  
+In your original terminal (with the virtual environment activated), start the server:
+
 ```bash
 python manage.py runserver
 ```
 
 ---
 
-### **6. Configure the Admin Panel [Skip this step if skipped step 3]**  
+### **6. (Optional) Access the Admin Panel**
 
-1. Open your browser and go to:  
+If you created a superuser in Step 3:
+
+1. Navigate to:  
    ```
    http://127.0.0.1:8000/admin/
    ```
-2. Log in with the **superuser credentials** you created.  
-3. Create a **user, add it to accounts** in the admin panel.  
+2. Log in using your superuser credentials.
+3. Create a new user and add them to the `accounts`.
 
 ---
 
-### **7. Update `views.py` [Skip this step if skipped step 3]**  
+### **7. (Optional) Update `views.py` for Paper Trading**
 
-Modify the following line in `views.py` to match the **username** you created in the admin panel.  
-This line appears **twice** in different functions:  
+In `views.py`, update the dummy user reference to match the username you created in the admin panel.  
+This line appears **twice**—update both:
 
 ```python
-dummy_user = User.objects.get(username='test1')  # Change 'test1' to your created username
+dummy_user = User.objects.get(username='your_username')
 ```
 
-Once updated, you can now run the **paper trading model**.
+Replace `'your_username'` with the actual username you set up.
 
 ---
 
-## **Tech Stack**  
+## **Tech Stack**
 
-- **Backend:** Django, WebSockets (`yliveticker`), `yfinance`  
-- **Frontend:** Django Templates, TailwindCSS  
-- **Database:** SQLite (default) or PostgreSQL (optional)  
-
----
-
-## **Contributing**  
-
-Contributions are welcome! Please follow these steps:  
-1. Fork the repository  
-2. Create a new branch (`feature-branch`)  
-3. Commit your changes  
-4. Open a pull request  
+- **Backend**: Django, WebSockets (`yliveticker`), `yfinance`
+- **Frontend**: Django Templates, TailwindCSS
+- **Database**: SQLite (default), PostgreSQL (optional)
 
 ---
+
+## **Contributing**
+
+We welcome contributions from the community! Here's how to get started:
+
+1. Fork the repository.
+2. Create a new branch:  
+   ```bash
+   git checkout -b feature-branch
+   ```
+3. Commit your changes.
+4. Open a pull request on GitHub.
